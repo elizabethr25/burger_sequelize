@@ -16,27 +16,24 @@ router.get("/", function(req, res) {
 });
 
 router.get("/index", function(req, res){
-
     db.Burger.findAll({
-        include: [{db: db.devoured}]
     }).then(function(data){
         var hbsObject = { burger: data};
-        console.log(data);
         res.render("index", hbsObject);
     })
 });
 
-router.post("/burger/create", function(req, res){
-
+router.post("/burgers/create", function(req, res){
     db.Burger.create({
-        name: req.body.name,
+        name: req.body.burger_name,
         devoured: false
     }).then(function(){
-        res.redirect("/index")
+        res.redirect("/index");
     });
 });
 
 router.get("/burger/:id", function(req, res){
+    // console.log("hello");
     models.devoured.create({
         name: req.body.name,
         id: req.params.id
